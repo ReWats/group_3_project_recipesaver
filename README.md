@@ -1,7 +1,7 @@
 
 
 # group_3_project_recipesaver
-A mock repository for the CFG Degree Specialisation Group Project.
+A repository for the CFG Degree Specialisation Group Project.
 
 Contributors:
 Freddy Henderson,
