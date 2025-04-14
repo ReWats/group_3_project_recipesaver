@@ -52,6 +52,6 @@ Example:
 -Websites for supermarkets permit scraping.
 -Items are available in at least one store.
 
-# Instrucions For User
+# Instructions For User
 --------------------
 ------------
