@@ -1,12 +1,13 @@
 
 
-# mock_group_project
+# group_3_project_recipesaver
 A mock repository for the CFG Degree Specialisation Group Project.
 
 Contributors:
 Freddy Henderson,
 Nikki Iyayi,
 Malika Zaouri,
+Hila Raz,
 Leima Raz,
 Rebecca Watson
 
@@ -23,14 +24,34 @@ The application will have two main functions:
 
 Additional features are:
 
-a) Allow users to store their favourite products and easily search the latest prices without having to input the product name each time
-b) Calculate the price differences between the highest and lowest price of a product and return this information to the user eg: by shopping at X supermarket rather than Y supermarket you have saved £Z
+1) Calculate the price differences between the highest and lowest price of a product and return this information to the user eg: by shopping at X supermarket rather than Y supermarket you have saved £Z
 
 # Logic and Rules
 
 <u>User Input</u>
-Load a saved recipe or manually enter items eg:
+User manually enters items eg:
 User can choose "Pancake Recipe" from their saved list or type: "milk. eggs, flour"
 
-<u<Price Aggregation</u>
-The Octoparse API scrpes price data in real time/
+<u>Price Aggregation</u>
+The Octoparse API scrpes price data in real time
+
+<u>Calculating cost<u>
+-Single-Store total: Calculates the total cost if all items are bought from one store.
+-Multi-Store optimisation: Recommends splitting the list across stores for maximum savings.
+
+Example:
+-Single-store: Tesco total = £5.00.
+-Multi-store: Buy milk at Asda (£1.10) + eggs at Tesco (£2.00) = Total £3.10.
+
+<u>Tracking Savings</u>
+-Evaluates how much the user spends in comparison to the most costly option.
+=Example: By selecting Asda and Tesco over Sainsbury's, I was able to save £1.90.
+
+<u>Assumptions</u>
+-Cost is more important to users than proximity.
+-Websites for supermarkets permit scraping.
+-Items are available in at least one store.
+
+<u> # Instrucions for using the application </u>
+--------------------
+------------
