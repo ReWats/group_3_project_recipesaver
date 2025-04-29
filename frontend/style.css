@@ -35,3 +35,23 @@ form input {
     font-family: "Roboto", sans-serif;
     font-size: 20px;
 }
+
+.supermarket-card {
+    background-color: white;
+    width:200px;
+    height: 200px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.supermarket-card p {
+    font-size: 28px;
+}
+
+h3 {
+    font-size: 30px;
+}
+
+h2 {
+    font-size: 40px;
+}
