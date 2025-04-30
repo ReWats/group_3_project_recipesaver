@@ -33,27 +33,13 @@ def aldi_api_scrape(ingredient):
     print(aldi_price)
 
 
-## TRYING TO DO TESCO BUT HAVING ISSUES WITH HOW LONG IT TAKES
-
-# def tesco_api_scrape(ingredient):
-#     payload = {'api_key': '68f66e079cf6b42e57365a68fd239b6f', 'url': f'https://www.tesco.com/groceries/en-GB/search?query={ingredient}'}
-#     r = requests.get('https://api.scraperapi.com/', params=payload)
-#
-#     soup = BeautifulSoup(r.text, 'html.parser')
-#     print(soup.find(class_="styled__StyledVerticalTile-sc-1r1v9f3-1"))
-#
-#     quantity = 1
-#
-#     # # Price is price per item!
-#     pr = str(soup.find(class_="text__StyledText-sc-1jpzi8m-0"))
-#     pr = pr[118:]
-#     print(pr)
-#     price = float(re.search("[0-9]+\.[0-9]+", pr).group(0))
-#
-#
-#     # print(item)
-#     print(quantity)
-#     print(price)
 
 aldi_api_scrape("orange")
-# tesco_api_scrape("orange")
+
+def run():
+    running = True
+    while running:
+
+
+if __name__ == "__main__":
+    run()
