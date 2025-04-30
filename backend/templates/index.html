@@ -11,10 +11,10 @@
         <div class="container">
             <div class="ingredients-section section">
                 <h2>Please enter your ingredients below:</h2>
-                <form action="/output" method="GET">
-                    <textarea name="ingredient_list" style="width:400px;height:250px;"></textarea>
+                <form action="{{ url_for('output')}}" method="POST">
+                    <textarea name="textarea" style="width:400px;height:250px;"></textarea>
                     <br>
-                    <input type="submit" formaction="/output" value="submit" style="width:400px;margin:10px;background-color:#FF6B6B;border-radius:10px;height:50px;">
+                    <input type="submit" value="submit" style="width:400px;margin:10px;background-color:#FF6B6B;border-radius:10px;height:50px;">
                 </form>
             </div>
             <div class="recipe-section section">

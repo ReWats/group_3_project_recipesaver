@@ -36,10 +36,3 @@ def aldi_api_scrape(ingredient):
 
 aldi_api_scrape("orange")
 
-def run():
-    running = True
-    while running:
-
-
-if __name__ == "__main__":
-    run()
