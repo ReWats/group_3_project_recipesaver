@@ -13,6 +13,7 @@ CREATE TABLE recipe_items (
 	recipe_id INT NOT NULL, -- Links to the recipes tables via recipe ID (ensure ingredients belong to recipe)
     item_name VARCHAR(255) NOT NULL,
     quantity INT DEFAULT 1,
+    price DECIMAL(10,2),
     FOREIGN KEY (recipe_id) REFERENCES recipes(recipe_id) ON DELETE CASCADE
 );
 
