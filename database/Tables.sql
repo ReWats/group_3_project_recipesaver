@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS recipe_items (
 CREATE TABLE IF NOT EXISTS supermarket_prices (
     price_id INT AUTO_INCREMENT PRIMARY KEY,
     scraped_item_name VARCHAR(255) NOT NULL, -- e.g., "Large Free-Range Eggs"
-    quantity VARCHAR(50),        
+    quantity VARCHAR(50),
     price DECIMAL(10,2) NOT NULL,
     supermarket VARCHAR(50) NOT NULL,
     last_updated DATETIME NOT NULL -- When the price was scraped
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS temp_ingredients (
     unit VARCHAR(50) DEFAULT 'each'
 );
 
--- Indexes 
+-- Indexes
 CREATE INDEX idx_recipe_items_recipe_id ON recipe_items(recipe_id);
 CREATE INDEX idx_prices_item ON supermarket_prices(scraped_item_name);
 CREATE INDEX idx_temp_session ON temp_ingredients(session_id);
@@ -50,12 +50,12 @@ SET @pancake_id = LAST_INSERT_ID();
 
 INSERT INTO recipe_items(recipe_id, item_name, quantity, unit)
 VALUES
-(@pancake_id, 'Plain flour', 100, 'g'),
-(@pancake_id, 'Whole milk', 300, 'ml'),
+(@pancake_id, 'Plain flour', 0.1, 'kg'),
+(@pancake_id, 'Whole milk', 0.3, 'l'),
 (@pancake_id, 'Large eggs', 2, 'each'),
 (@pancake_id, 'Sunflower oil', 1, 'tbsp'),
 (@pancake_id, 'Lemon', 1, 'each'),
-(@pancake_id, 'Caster sugar', 20, 'g');
+(@pancake_id, 'Caster sugar', 0.02, 'kg');
 
 -- Stored procedure: cheapest single-store total
 DELIMITER $$
@@ -97,8 +97,3 @@ BEGIN
   GROUP BY ti.item_name;
 END $$
 DELIMITER ;
-
-
-
-
-
