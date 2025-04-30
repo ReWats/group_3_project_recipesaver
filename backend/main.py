@@ -131,10 +131,78 @@ def parameter_sorting(ingredients_string):
     total_tesco_price = float("{:.2f}".format(total_tesco_price))
 
     # Lists the total prices for each supermarket to pass back to the app.py file
+    # output_dict = {
+    #     "aldi_price": total_aldi_price,
+    #     "morrisons_price": total_morr_price,
+    #     "tesco_price": total_tesco_price,
+    # }
+    #
+    # return output_dict
+
+    # new dictionary to track the cheapest supermarket for each ingredient
+    cheapest_supermarket_per_ingredient = {}
+    # new dictionary to track savings when buying from multiple supermarkets
+    mixed_basket_savings = 0
+
+    # cheapest supermarket for each ingredient
+    for index, ingredient in enumerate(aldi_ingredients_list):
+        ingredient_name = ingredient["ingredient_name"]
+        ingredient_quantity = ingredient["ingredient_quantity"]
+
+        # get prices from each supermarket for a specific ingredient e.g. sugar
+        aldi_price = aldi_ingredients_list[index]["price_per_unit"] * ingredient_quantity
+        morr_price = morr_ingredients_list[index]["price_per_unit"] * ingredient_quantity
+        tesco_price = tesco_ingredients_list[index]["price_per_unit"] * ingredient_quantity
+
+        # finding out what the cheapest supermarket for a specific ingredient
+        prices = {
+            "Aldi": aldi_price,
+            "Morrisons": morr_price,
+            "Tesco": tesco_price
+        }
+
+        # get the cheapest supermarket and the price
+        cheapest_supermarket = min(prices, key=prices.get)
+        cheapest_price = prices[cheapest_supermarket]
+
+        # add to our existing dictionary
+        cheapest_supermarket_per_ingredient[ingredient_name] = cheapest_supermarket
+
+        # calculate potential savings
+        highest_price = max(prices.values())
+        ingredient_savings = highest_price - cheapest_price
+        mixed_basket_savings += ingredient_savings
+
+    # mixed basket savings to two decimal places
+    mixed_basket_savings = float("{:.2f}".format(mixed_basket_savings))
+
+    # find the cheapest overall supermarket
+    supermarket_totals = {
+        "Aldi": total_aldi_price,
+        "Morrisons": total_morr_price,
+        "Tesco": total_tesco_price
+    }
+
+    cheapest_supermarket = min(supermarket_totals, key=supermarket_totals.get)
+    cheapest_total = supermarket_totals[cheapest_supermarket]
+
+    # calculate savings compared to the most expensive supermarket
+    most_expensive_supermarket = max(supermarket_totals, key=supermarket_totals.get)
+    most_expensive_total = supermarket_totals[most_expensive_supermarket]
+    single_store_savings = most_expensive_total - cheapest_total
+    single_store_savings = float("{:.2f}".format(single_store_savings))
+
+    # list the total prices for each supermarket with info for the cheapest ingredient and where to find it
     output_dict = {
         "aldi_price": total_aldi_price,
         "morrisons_price": total_morr_price,
         "tesco_price": total_tesco_price,
+        "cheapest_store": cheapest_supermarket,
+        "cheapest_store_total": cheapest_total,
+        "single_store_savings": single_store_savings,
+        "cheapest_per_ingredient": cheapest_supermarket_per_ingredient,
+        "mixed_basket_savings": mixed_basket_savings
     }
 
+    print(output_dict)
     return output_dict
