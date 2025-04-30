@@ -10,6 +10,8 @@ urldict = {
     "Waitrose": "https://www.waitrose.com/ecom/shop/search?&searchTerm="
 }
 
+
+
 def aldi_api_scrape(ingredient):
     payload = {'api_key': '68f66e079cf6b42e57365a68fd239b6f', 'url': f'https://www.aldi.co.uk/results?q={ingredient}'}
     r = requests.get('https://api.scraperapi.com/', params=payload)
