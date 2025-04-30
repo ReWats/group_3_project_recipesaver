@@ -92,19 +92,23 @@ def tesco_api_scrape(ingredient_string):
     ########################################################################################################
 
     # Need to find the class that holds the quantity for the first item!
-    quant = str(soup.find(class_="product-tile__unit-of-measurement"))
-    # Remove all the extra characters around it so we don't have issues with "
-    quant = quant[93:]
-    quantity = int(re.search("[0-9]+", quant).group(0))
+    # quant = str(soup.find(class_="product-tile__unit-of-measurement"))
+    # # Remove all the extra characters around it so we don't have issues with "
+    # quant = quant[93:]
+    # quantity = int(re.search("[0-9]+", quant).group(0))
 
-    # Extracting the price
-    # Find the class that holds the price
-    pr = str(soup.find(class_="base-price__regular"))
-    # Remove all the extra characters around it so we don't have issues with "
-    pr = pr[40:]
-    # Note in the below line we divide by quantity so we get unit cost
-    price = float(re.search("[0-9]+\.[0-9]+", pr).group(0)) / quantity
+    # # Extracting the price
+    # # Find the class that holds the price
+    # pr = str(soup.find(class_="base-price__regular"))
+    # # Remove all the extra characters around it so we don't have issues with "
+    # pr = pr[40:]
+    # # Note in the below line we divide by quantity so we get unit cost
+    # price = float(re.search("[0-9]+\.[0-9]+", pr).group(0)) / quantity
 
+
+    pr = str(soup.find(class_="ddsweb-price__subtext"))
+    pr = pr[117:]
+    price = float(re.search("[0-9]+\.[0-9]+", pr).group(0))
     ########################################################################################################
 
     # Putting all the data we need to calculate costs into a dictionary
@@ -246,14 +250,14 @@ def parameter_sorting(ingredients_string):
     total_morr_price = float("{:.2f}".format(total_morr_price))
 
     # TESCO
-    # tesco_map = map(tesco_api_scrape, ingredients_list)
-    # tesco_ingredients_list = list(tesco_map)
-    #
-    # total_tesco_price = 0
-    # for i in tesco_ingredients_list:
-    #     total_tesco_price = total_tesco_price + (i["price_per_unit"] * i["ingredient_quantity"])
-    #
-    # total_tesco_price = float("{:.2f}".format(total_tesco_price))
+    tesco_map = map(tesco_api_scrape, ingredients_list)
+    tesco_ingredients_list = list(tesco_map)
+
+    total_tesco_price = 0
+    for i in tesco_ingredients_list:
+        total_tesco_price = total_tesco_price + (i["price_per_unit"] * i["ingredient_quantity"])
+
+    total_tesco_price = float("{:.2f}".format(total_tesco_price))
 
     # Sainsburys
     # sains_map = map(sainsburys_api_scrape, ingredients_list)
@@ -280,7 +284,7 @@ def parameter_sorting(ingredients_string):
         "aldi_price": total_aldi_price,
         "morrisons_price": total_morr_price,
         "sainsburys_price": 0.00,
-        "tesco_price": 0.00,
+        "tesco_price": total_tesco_price,
         "waitrose_price": 0.00
     }
 
