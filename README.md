@@ -26,6 +26,16 @@ Additional features are:
 
 1) Calculate the price differences between the highest and lowest price of a product and return this information to the user eg: by shopping at X supermarket rather than Y supermarket you have saved £Z
 
+# Tech Stack used
+
+-Python 3
+-SQL
+-Octoparse API
+-Flask
+-HTML
+-CSS
+-GitHub
+
 # Logic and Rules
 
 <u>User Input</u>
