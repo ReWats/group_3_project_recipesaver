@@ -59,26 +59,9 @@ def morrisons_api_scrape(ingredient_string):
     # Essentially parses the api response into text we can look through!
     soup = BeautifulSoup(r.text, 'html.parser')
 
-    ########################################################################################################
-    ######################### Needs to be adapted to Morrison's website ####################################
-    ########################################################################################################
-
-    # Need to find the class that holds the quantity for the first item!
-    morr_quant = str(soup.find(class_="product-tile__unit-of-measurement"))
-    # Remove all the extra characters around it so we don't have issues with "
-    morr_quant = morr_quant[93:]
-    morr_quantity = int(re.search("[0-9]+", morr_quant).group(0))
-
-    # Extracting the price
-    # Find the class that holds the price
-    morr_pr = str(soup.find(class_="base-price__regular"))
-    # Remove all the extra characters around it so we don't have issues with "
-    morr_pr = morr_pr[40:]
-    # Note in the below line we divide by quantity so we get unit cost
-    morr_price = float(re.search("[0-9]+\.[0-9]+", morr_pr).group(0)) / morr_quantity
-
-    ########################################################################################################
-
+    morr_pr = str(soup.find('span', attrs={'data-test': 'fop-price-per-unit'}))
+    morr_pr = morr_pr[100:]
+    morr_price = float(re.search("[0-9]+\.[0-9]+", morr_pr).group(0))
 
     # Putting all the data we need to calculate costs into a dictionary
     ing_dict = {
@@ -210,6 +193,19 @@ def waitrose_api_scrape(ingredient_string):
     # Note in the below line we divide by quantity so we get unit cost
     price = float(re.search("[0-9]+\.[0-9]+", pr).group(0)) / quantity
 
+    quant = str(soup.find(class_="product-pod-price"))
+    # Remove all the extra characters around it so we don't have issues with "
+    quant = quant[93:]
+    quantity = int(re.search("[0-9]+", quant).group(0))
+
+    # Extracting the price
+    # Find the class that holds the price
+    pr = str(soup.find(class_="itemPrice___j1MYI"))
+    # Remove all the extra characters around it so we don't have issues with "
+    pr = pr[40:]
+    # Note in the below line we divide by quantity so we get unit cost
+    price = float(re.search("[0-9]+\.[0-9]+", pr).group(0)) / quantity
+
     ########################################################################################################
 
     # Putting all the data we need to calculate costs into a dictionary
@@ -250,42 +246,42 @@ def parameter_sorting(ingredients_string):
     total_morr_price = float("{:.2f}".format(total_morr_price))
 
     # TESCO
-    tesco_map = map(tesco_api_scrape, ingredients_list)
-    tesco_ingredients_list = list(tesco_map)
-
-    total_tesco_price = 0
-    for i in tesco_ingredients_list:
-        total_tesco_price = total_tesco_price + (i["price_per_unit"] * i["ingredient_quantity"])
-
-    total_tesco_price = float("{:.2f}".format(total_tesco_price))
+    # tesco_map = map(tesco_api_scrape, ingredients_list)
+    # tesco_ingredients_list = list(tesco_map)
+    #
+    # total_tesco_price = 0
+    # for i in tesco_ingredients_list:
+    #     total_tesco_price = total_tesco_price + (i["price_per_unit"] * i["ingredient_quantity"])
+    #
+    # total_tesco_price = float("{:.2f}".format(total_tesco_price))
 
     # Sainsburys
-    sains_map = map(sainsburys_api_scrape, ingredients_list)
-    sains_ingredients_list = list(sains_map)
-
-    total_sains_price = 0
-    for i in sains_ingredients_list:
-        total_sains_price = total_sains_price + (i["price_per_unit"] * i["ingredient_quantity"])
-
-    total_sains_price = float("{:.2f}".format(total_sains_price))
+    # sains_map = map(sainsburys_api_scrape, ingredients_list)
+    # sains_ingredients_list = list(sains_map)
+    #
+    # total_sains_price = 0
+    # for i in sains_ingredients_list:
+    #     total_sains_price = total_sains_price + (i["price_per_unit"] * i["ingredient_quantity"])
+    #
+    # total_sains_price = float("{:.2f}".format(total_sains_price))
 
     # Waitrose
-    wait_map = map(waitrose_api_scrape, ingredients_list)
-    wait_ingredients_list = list(wait_map)
-
-    total_wait_price = 0
-    for i in wait_ingredients_list:
-        total_wait_price = total_wait_price + (i["price_per_unit"] * i["ingredient_quantity"])
-
-    total_wait_price = float("{:.2f}".format(total_wait_price))
+    # wait_map = map(waitrose_api_scrape, ingredients_list)
+    # wait_ingredients_list = list(wait_map)
+    #
+    # total_wait_price = 0
+    # for i in wait_ingredients_list:
+    #     total_wait_price = total_wait_price + (i["price_per_unit"] * i["ingredient_quantity"])
+    #
+    # total_wait_price = float("{:.2f}".format(total_wait_price))
 
     # Lists the total prices for each supermarket to pass back to the app.py file
     output_dict = {
         "aldi_price": total_aldi_price,
         "morrisons_price": total_morr_price,
-        "sainsburys_price": total_sains_price,
-        "tesco_price": total_tesco_price,
-        "waitrose_price": total_wait_price
+        "sainsburys_price": 0.00,
+        "tesco_price": 0.00,
+        "waitrose_price": 0.00
     }
 
     return output_dict
