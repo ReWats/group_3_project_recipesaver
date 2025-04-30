@@ -1,11 +1,13 @@
 from flask import Flask, render_template, request
 from backend.main import parameter_sorting
+from db_utils import get_all_recipes_db
 
 app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    context = get_all_recipes_db()
+    return render_template("index.html", **context)
 
 @app.route("/output", methods=['GET', 'POST'])
 def output():

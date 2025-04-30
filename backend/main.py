@@ -19,7 +19,8 @@ def aldi_api_scrape(ingredient_string):
     # We use this to work out the price per unit, as we need to know how much each item holds (e.g. 5 pack of oranges)
     aldi_quant = str(soup.find(class_="product-tile__unit-of-measurement"))
     aldi_quant = aldi_quant[93:]
-    aldi_quantity = int(re.search("[0-9]+", aldi_quant).group(0))
+
+    aldi_quantity = int(re.search("[1-9]+", aldi_quant).group(0))
 
     # Extracting the price
     aldi_pr = str(soup.find(class_="base-price__regular"))
@@ -137,5 +138,3 @@ def parameter_sorting(ingredients_string):
     }
 
     return output_dict
-
-# sainsburys_api_scrape("1 orange")
