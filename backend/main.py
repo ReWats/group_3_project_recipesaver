@@ -1,10 +1,15 @@
-import requests
 import re
+import requests
 from bs4 import BeautifulSoup
 
 def aldi_api_scrape(ingredient_string):
     # Grabs quantity from string (units / g / ml)
-    quantity = int(re.search("[0-9]+", ingredient_string).group(0))
+    match = re.search("[0-9]+", ingredient_string)
+    if match:
+        quantity = int(match.group(0))
+    else:
+        quantity = 1  # Default value if no quantity is found
+
     # grabs ingredient name. Done using split and join in case of two word names, e.g. "lemon juice"
     ingredient_temp = ingredient_string.split()[1:]
     ingredient = " ".join(ingredient_temp)
@@ -13,20 +18,28 @@ def aldi_api_scrape(ingredient_string):
     payload = {'api_key': '68f66e079cf6b42e57365a68fd239b6f', 'url': f'https://www.aldi.co.uk/results?q={ingredient}'}
     r = requests.get('https://api.scraperapi.com/', params=payload)
 
-    # Essentially parses the api response into text we can look through!
+    # parses the API response into text
     soup = BeautifulSoup(r.text, 'html.parser')
 
     # We use this to work out the price per unit, as we need to know how much each item holds (e.g. 5 pack of oranges)
     aldi_quant = str(soup.find(class_="product-tile__unit-of-measurement"))
     aldi_quant = aldi_quant[93:]
 
-    aldi_quantity = int(re.search("[1-9]+", aldi_quant).group(0))
+    match_quantity = re.search("[1-9]+", aldi_quant)
+    if match_quantity:
+        aldi_quantity = int(match_quantity.group(0))
+    else:
+        aldi_quantity = 1  # Default value if no quantity found
 
     # Extracting the price
     aldi_pr = str(soup.find(class_="base-price__regular"))
     aldi_pr = aldi_pr[40:]
     # Note in the below line we divide by quantity so we get unit cost
-    aldi_price = float(re.search("[0-9]+\.[0-9]+", aldi_pr).group(0)) / aldi_quantity
+    match_price = re.search("[0-9]+\.[0-9]+", aldi_pr)
+    if match_price:
+        aldi_price = float(match_price.group(0)) / aldi_quantity
+    else:
+        aldi_price = 0  # Default value if no price is found
 
     # Putting all the data we need to calculate costs into a dictionary
     ing_dict = {

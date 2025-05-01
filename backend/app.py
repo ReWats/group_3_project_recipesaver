@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 from backend.main import parameter_sorting
-from db_utils import get_all_recipes_db
+from backend.db_utils import get_all_recipes_db
 
 app = Flask(__name__)
 
