@@ -197,3 +197,5 @@ def parameter_sorting(ingredients_string):
 
     print(output_dict)
     return output_dict
+
+print(aldi_api_scrape("1 orange"))
