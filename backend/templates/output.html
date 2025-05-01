@@ -25,14 +25,16 @@
             </div>
 
             <h2>Cheapest Overall Shop</h2>
-            <p>{{ cheapest_store }}</p>
+            <h3>{{ cheapest_store }}</h3>
 
             <h2>Total Savings</h2>
-            <p>£{{ mixed_basket_savings }}</p>
+            <h3>£{{ mixed_basket_savings }}</h3>
 
-            <h3>Cheapest shop per ingredient</h3>
-            <p>{{ cheapest_per_ingredient }}</p>
-
+            <h2>Cheapest shop per ingredient</h2>
+            {% for key, value in cheapest_per_ingredient.items() %}
+                <h3>{{ key|e }}: {{ value|e }}</h3>
+            {% endfor %}
+<!--
         </div>
 
     </body>
