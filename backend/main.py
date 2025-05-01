@@ -130,15 +130,6 @@ def parameter_sorting(ingredients_string):
 
     total_tesco_price = float("{:.2f}".format(total_tesco_price))
 
-    # Lists the total prices for each supermarket to pass back to the app.py file
-    # output_dict = {
-    #     "aldi_price": total_aldi_price,
-    #     "morrisons_price": total_morr_price,
-    #     "tesco_price": total_tesco_price,
-    # }
-    #
-    # return output_dict
-
     # new dictionary to track the cheapest supermarket for each ingredient
     cheapest_supermarket_per_ingredient = {}
     # new dictionary to track savings when buying from multiple supermarkets
