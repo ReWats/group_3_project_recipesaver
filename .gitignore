@@ -172,3 +172,8 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# some files from IntelliJ/Android Studio causing merging errors: adding to gitignore
+*.iml
+*.xml
+.idea/
