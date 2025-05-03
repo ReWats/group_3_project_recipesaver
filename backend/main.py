@@ -59,26 +59,9 @@ def morrisons_api_scrape(ingredient_string):
     # Essentially parses the api response into text we can look through!
     soup = BeautifulSoup(r.text, 'html.parser')
 
-    ########################################################################################################
-    ######################### Needs to be adapted to Morrison's website ####################################
-    ########################################################################################################
-
-    # Need to find the class that holds the quantity for the first item!
-    morr_quant = str(soup.find(class_="product-tile__unit-of-measurement"))
-    # Remove all the extra characters around it so we don't have issues with "
-    morr_quant = morr_quant[93:]
-    morr_quantity = int(re.search("[0-9]+", morr_quant).group(0))
-
-    # Extracting the price
-    # Find the class that holds the price
-    morr_pr = str(soup.find(class_="base-price__regular"))
-    # Remove all the extra characters around it so we don't have issues with "
-    morr_pr = morr_pr[40:]
-    # Note in the below line we divide by quantity so we get unit cost
-    morr_price = float(re.search("[0-9]+\.[0-9]+", morr_pr).group(0)) / morr_quantity
-
-    ########################################################################################################
-
+    morr_pr = str(soup.find('span', attrs={'data-test': 'fop-price-per-unit'}))
+    morr_pr = morr_pr[100:]
+    morr_price = float(re.search("[0-9]+\.[0-9]+", morr_pr).group(0))
 
     # Putting all the data we need to calculate costs into a dictionary
     ing_dict = {
@@ -104,25 +87,9 @@ def tesco_api_scrape(ingredient_string):
     # Essentially parses the api response into text we can look through!
     soup = BeautifulSoup(r.text, 'html.parser')
 
-    ########################################################################################################
-    ######################### Needs to be adapted to TESCO's website #######################################
-    ########################################################################################################
-
-    # Need to find the class that holds the quantity for the first item!
-    quant = str(soup.find(class_="product-tile__unit-of-measurement"))
-    # Remove all the extra characters around it so we don't have issues with "
-    quant = quant[93:]
-    quantity = int(re.search("[0-9]+", quant).group(0))
-
-    # Extracting the price
-    # Find the class that holds the price
-    pr = str(soup.find(class_="base-price__regular"))
-    # Remove all the extra characters around it so we don't have issues with "
-    pr = pr[40:]
-    # Note in the below line we divide by quantity so we get unit cost
-    price = float(re.search("[0-9]+\.[0-9]+", pr).group(0)) / quantity
-
-    ########################################################################################################
+    pr = str(soup.find(class_="ddsweb-price__subtext"))
+    pr = pr[117:]
+    price = float(re.search("[0-9]+\.[0-9]+", pr).group(0))
 
     # Putting all the data we need to calculate costs into a dictionary
     ing_dict = {
@@ -140,6 +107,7 @@ def sainsburys_api_scrape(ingredient_string):
     ingredient_temp = ingredient_string.split()[1:]
     ingredient = " ".join(ingredient_temp)
 
+    print(ingredient)
     # Builds URL and does API request
     payload = {'api_key': '68f66e079cf6b42e57365a68fd239b6f',
                'url': f'https://www.sainsburys.co.uk/gol-ui/SearchResults/{ingredient}'}
@@ -147,24 +115,30 @@ def sainsburys_api_scrape(ingredient_string):
 
     # Essentially parses the api response into text we can look through!
     soup = BeautifulSoup(r.text, 'html.parser')
-
+    print(soup)
     ########################################################################################################
     ######################### Needs to be adapted to Sainsbury's website ###################################
     ########################################################################################################
 
-    # Need to find the class that holds the quantity for the first item!
-    quant = str(soup.find(class_="product-tile__unit-of-measurement"))
-    # Remove all the extra characters around it so we don't have issues with "
-    quant = quant[93:]
-    quantity = int(re.search("[0-9]+", quant).group(0))
+    # # Need to find the class that holds the quantity for the first item!
+    # quant = str(soup.find(class_="product-tile__unit-of-measurement"))
+    # # Remove all the extra characters around it so we don't have issues with "
+    # quant = quant[93:]
+    # quantity = int(re.search("[0-9]+", quant).group(0))
+    #
+    # # Extracting the price
+    # # Find the class that holds the price
+    # pr = str(soup.find(class_="base-price__regular"))
+    # # Remove all the extra characters around it so we don't have issues with "
+    # pr = pr[40:]
+    # # Note in the below line we divide by quantity so we get unit cost
+    # price = float(re.search("[0-9]+\.[0-9]+", pr).group(0)) / quantity
 
-    # Extracting the price
-    # Find the class that holds the price
-    pr = str(soup.find(class_="base-price__regular"))
-    # Remove all the extra characters around it so we don't have issues with "
-    pr = pr[40:]
-    # Note in the below line we divide by quantity so we get unit cost
-    price = float(re.search("[0-9]+\.[0-9]+", pr).group(0)) / quantity
+
+    pr = str(soup.find('span', attrs={'data-testid': 'pt-unit-price'}))
+    print(pr)
+    pr = pr[75:]
+    price = float(re.search("[0-9]+\.[0-9]+", pr).group(0))
 
     ########################################################################################################
 
@@ -205,6 +179,19 @@ def waitrose_api_scrape(ingredient_string):
     # Extracting the price
     # Find the class that holds the price
     pr = str(soup.find(class_="base-price__regular"))
+    # Remove all the extra characters around it so we don't have issues with "
+    pr = pr[40:]
+    # Note in the below line we divide by quantity so we get unit cost
+    price = float(re.search("[0-9]+\.[0-9]+", pr).group(0)) / quantity
+
+    quant = str(soup.find(class_="product-pod-price"))
+    # Remove all the extra characters around it so we don't have issues with "
+    quant = quant[93:]
+    quantity = int(re.search("[0-9]+", quant).group(0))
+
+    # Extracting the price
+    # Find the class that holds the price
+    pr = str(soup.find(class_="itemPrice___j1MYI"))
     # Remove all the extra characters around it so we don't have issues with "
     pr = pr[40:]
     # Note in the below line we divide by quantity so we get unit cost
@@ -270,22 +257,24 @@ def parameter_sorting(ingredients_string):
     total_sains_price = float("{:.2f}".format(total_sains_price))
 
     # Waitrose
-    wait_map = map(waitrose_api_scrape, ingredients_list)
-    wait_ingredients_list = list(wait_map)
-
-    total_wait_price = 0
-    for i in wait_ingredients_list:
-        total_wait_price = total_wait_price + (i["price_per_unit"] * i["ingredient_quantity"])
-
-    total_wait_price = float("{:.2f}".format(total_wait_price))
+    # wait_map = map(waitrose_api_scrape, ingredients_list)
+    # wait_ingredients_list = list(wait_map)
+    #
+    # total_wait_price = 0
+    # for i in wait_ingredients_list:
+    #     total_wait_price = total_wait_price + (i["price_per_unit"] * i["ingredient_quantity"])
+    #
+    # total_wait_price = float("{:.2f}".format(total_wait_price))
 
     # Lists the total prices for each supermarket to pass back to the app.py file
     output_dict = {
         "aldi_price": total_aldi_price,
         "morrisons_price": total_morr_price,
-        "sainsburys_price": total_sains_price,
+        "sainsburys_price": 0.00,
         "tesco_price": total_tesco_price,
-        "waitrose_price": total_wait_price
+        "waitrose_price": 0.00
     }
 
     return output_dict
+
+# sainsburys_api_scrape("1 orange")
