@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename = 'css/style.css') }}">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Londrina+Shadow&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -12,31 +12,31 @@
             <div class="container">
             <div class="supermarket-card aldi">
                 <h3>ALDI</h3>
-                <p>£xx.xx</p>
+                <p>£{{ aldi_price }}</p>
             </div>
             <div class="supermarket-card morrisons">
                 <h3>Morrisons</h3>
-                <p>£xx.xx</p>
+                <p>£{{ morrisons_price }}</p>
             </div>
             <div class="supermarket-card tesco">
                 <h3>TESCO</h3>
-                <p>£xx.xx</p>
+                <p>£{{ tesco_price }}</p>
             </div>
             <div class="supermarket-card sainsburys">
                 <h3>Sainburys</h3>
-                <p>£xx.xx</p>
+                <p>£{{ sainsburys_price }}</p>
             </div>
             <div class="supermarket-card waitrose">
                 <h3>Waitrose</h3>
-                <p>£xx.xx</p>
+                <p>£{{ waitrose_price }}</p>
             </div>
         </div>
 
-            <h2>Cheapest Overall Shop</h2>
+            <!--<h2>Cheapest Overall Shop</h2>-->
 
             <!--Insert horizontal cards here-->
 
-            <h2>Your Ingredients:</h2>
+            <!--<h2>Your Ingredients:</h2>-->
 
             <!--Insert list of ingredients here-->
 
