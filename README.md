@@ -11,11 +11,19 @@ Hila Raz,
 Leima Raz,
 Rebecca Watson
 
+# Basic requirements to run the program
+
+-Source code editor such as PyCharm or VS Code
+-Python 3 installed 
+-Virtual Environment (venv) created
+-Installed packages: requests, beautifulsoup4, flask, mysql-connector-python, re
+-MySQL workbench
+
 # Introduction
 
 Due to the increase in the cost of living in the UK in recent years, we have identified a need for households to be able to easily locate the cheapest grocery items quickly and accurately.
 
-We have created a python application which uses the web scraping API Octoparse to compare grocery prices across major uk supermarkets and return the supermarket which has the lowest price of the product(s) searched for.
+We have created a python application which uses ScraperAPI to search online websites to compare grocery prices across major uk supermarkets and return the supermarket which has the lowest price of the product(s) searched for.
 
 The application will have two main functions: 
 
@@ -33,7 +41,7 @@ User manually enters items eg:
 User can choose "Pancake Recipe" from their saved list or type: "milk. eggs, flour"
 
 <u>Price Aggregation</u>
-The Octoparse API scrpes price data in real time
+ScraperAPI scarpes price data in real time
 
 <u>Calculating cost<u>
 -Single-Store total: Calculates the total cost if all items are bought from one store.
@@ -53,5 +61,43 @@ Example:
 -Items are available in at least one store.
 
 # Instructions For User
---------------------
-------------
+
+-In your source code editor; install Python 3
+-Create a virtual environment (venv)
+-Install: requests, beautifulsoup4, flask, mysql-connector-python or run the requirements.txt file (pip install -r requirements.txt)
+
+-Set up MySQL Database
+-Start MySQL server
+-Log in to MySQL: (mysql -u root -p)
+-Enter your password then run: 
+
+    sql
+
+    CREATE DATABASE product_pices;
+    USE product_prices;
+    SOURCE /path/to/tables.sql
+
+-Update the config.py file with your credentials so that the API can connect to your database, eg:
+
+    HOST = "enter your host eg: localhost"
+    USER = "enter your user eg: root"
+    PASSWORD = "enter your MySQL password"
+
+-Run the main.py file in the terminal to get fetch and compare price data from the different supermarkets and insert data
+
+-Run the app.py file which contains the Flask routes and then;
+    Go to the Templates folder and output.html to see the returned results of your search
+
+-The db_utils.py file does not need to be run, this is a helper file that contains functions which are used by other files such as: main.py and app.py
+
+# Constraints
+
+<u>Quantities</u>
+When searching for quantities of the product required, insert in the following format:
+    0.5 litre / 0.2 kilogramme 
+    rather than: 
+    500 grams / 200 millilitres 
+Due to time constraints, we have not yet been able to resolve this however, it is a future fix that we would implement
+
+
+
