@@ -16,7 +16,7 @@ Rebecca Watson
 -Source code editor such as PyCharm or VS Code
 -Python 3 installed 
 -Virtual Environment (venv) created
--Installed packages: requests, beautifulsoup4, flask, mysql-connector-python, re
+-Installed packages: requests, re, beautifulsoup4, flask, mysql-connector-python, 
 -MySQL workbench
 
 # Introduction
@@ -32,18 +32,18 @@ The application will have two main functions:
 
 Additional features are:
 
-1) Enter your required ingredients manually or select from a database of commonly used  ingredients (eg: milk, eggs, flour.)
+1) Enter your required ingredients and their quantities manually or select from a database of commonly used  ingredients (eg: 1 litre milk, 6 eggs, 0.5 kilogrammes flour.)
 
 # Logic and Rules
 
-<u>User Input</u>
+User Input:
 User manually enters items eg:
 User can enter a list of ingredients: "orange, apple" or they can select from a database of popular items, such as a pancake recipe: "milk. eggs, flour"
 
-<u>Price Aggregation</u>
+Price Aggregation:
 ScraperAPI scrapes price data in real time from 3 UK supermarkets: Tesco, Morrisons and Aldi
 
-<u>Calculating cost<u>
+Calculating cost:
 -Single-Store total: Calculates the total cost if all items are bought from one store.
 -Multi-Store optimisation: Recommends splitting the list across stores for maximum savings.
 
@@ -51,17 +51,19 @@ Example:
 -Single-store: Tesco total = £5.00.
 -Multi-store: Buy milk at Aldi (£1.10) + eggs at Tesco (£2.00) = Total £3.10.
 
-<u>Assumptions</u>
+Assumptions:
 -Cost is more important to users than proximity.
 -Websites for supermarkets permit scraping.
 -Items are available in at least one supermarket.
 
-<u>Data Flow Example</u>
+Data Flow Example:
 User input (e.g. ‘Milk, eggs’)  → Backend search URLs → Scraper fetches prices → System calculates total cost → User sees the most affordable shop to find chosen ingredients.
 
 # Instructions For User
 
 -Please be advised the program is slow and will take sometime to run, this is something we would work on in our future improvements.
+
+-You will need to create an account for ScraperAPI to obtain your unique API key which you will enter in the config.py file in order to run the code
 
 -In your source code editor; install Python 3
 -Create a virtual environment (venv)
@@ -74,31 +76,33 @@ User input (e.g. ‘Milk, eggs’)  → Backend search URLs → Scraper fetches 
 
     sql
 
-    CREATE DATABASE product_pices;
+    CREATE DATABASE RecipeSaver;
     USE product_prices;
-    SOURCE /path/to/tables.sql
+    SOURCE /path/to/Tables.sql
 
 -Update the config.py file with your credentials so that the API can connect to your database, eg:
 
     HOST = "enter your host eg: localhost"
     USER = "enter your user eg: root"
     PASSWORD = "enter your MySQL password"
+    APIKEY = "<api-key>"    
 
--Run the main.py file in the terminal to get fetch and compare price data from the different supermarkets and insert data
 
--Run the app.py file which contains the Flask routes and then;
-    Go to the Templates folder and output.html to see the returned results of your search
+-Run the app.py file which contains the Flask routes and then; in the browser, type the url: http://127.0.0.1:5000 Go to the Templates folder and output.html to see the returned results of your search
 
 -The db_utils.py file does not need to be run, this is a helper file that contains functions which are used by other files such as: main.py and app.py
 
 # Constraints
 
-<u>Quantities</u>
+Quantities:
 When searching for quantities of the product required, insert in the following format:
     0.5 litre / 0.2 kilogramme 
     rather than: 
     500 grams / 200 millilitres 
 Due to time constraints, we have not yet been able to resolve this however, it is a future fix that we would implement
+
+Error Handling:
+Due to time constraints, we have been unable to complete testing for error handling so user should ensure there are not typos in the ingredients being input to prevent issues with the code running.
 
 # Activity Log
 
@@ -106,4 +110,9 @@ Please follow the link below to view the Activity Log in Google Sheets for this 
 
 [Activity Log](https://docs.google.com/spreadsheets/d/1k2Zm3fWgJ4qsiLSlswLE0CGPQdNmfZfOuqC7wljym80/edit?gid=0#gid=0)
 
+# Trello Board
+
+Please follow the link below to view the teams Trello board
+
+[Trello Board](https://trello.com/b/9LdDxLCt/group-3-cfg)
 
