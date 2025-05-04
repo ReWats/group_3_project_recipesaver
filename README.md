@@ -32,16 +32,16 @@ The application will have two main functions:
 
 Additional features are:
 
-1) Calculate the price differences between the highest and lowest price of a product and return this information to the user eg: by shopping at X supermarket rather than Y supermarket you have saved £Z
+1) Enter your required ingredients manually or select from a database of commonly used  ingredients (eg: milk, eggs, flour.)
 
 # Logic and Rules
 
 <u>User Input</u>
 User manually enters items eg:
-User can choose "Pancake Recipe" from their saved list or type: "milk. eggs, flour"
+User can enter a list of ingredients: "orange, apple" or they can select from a database of popular items, such as a pancake recipe: "milk. eggs, flour"
 
 <u>Price Aggregation</u>
-ScraperAPI scarpes price data in real time
+ScraperAPI scrapes price data in real time from 3 UK supermarkets: Tesco, Morrisons and Aldi
 
 <u>Calculating cost<u>
 -Single-Store total: Calculates the total cost if all items are bought from one store.
@@ -49,16 +49,15 @@ ScraperAPI scarpes price data in real time
 
 Example:
 -Single-store: Tesco total = £5.00.
--Multi-store: Buy milk at Asda (£1.10) + eggs at Tesco (£2.00) = Total £3.10.
-
-<u>Tracking Savings</u>
--Evaluates how much the user spends in comparison to the most costly option.
-=Example: By selecting Asda and Tesco over Sainsbury's, I was able to save £1.90.
+-Multi-store: Buy milk at Aldi (£1.10) + eggs at Tesco (£2.00) = Total £3.10.
 
 <u>Assumptions</u>
 -Cost is more important to users than proximity.
 -Websites for supermarkets permit scraping.
--Items are available in at least one store.
+-Items are available in at least one supermarket.
+
+<u>Data Flow Example</u>
+User input (e.g. ‘Milk, eggs’)  → Backend search URLs → Scraper fetches prices → System calculates total cost → User sees the most affordable shop to find chosen ingredients.
 
 # Instructions For User
 
@@ -99,5 +98,10 @@ When searching for quantities of the product required, insert in the following f
     500 grams / 200 millilitres 
 Due to time constraints, we have not yet been able to resolve this however, it is a future fix that we would implement
 
+# Activity Log
+
+Please follow the link below to view the Activity Log in Google Sheets for this project:
+
+[text](https://docs.google.com/spreadsheets/d/1k2Zm3fWgJ4qsiLSlswLE0CGPQdNmfZfOuqC7wljym80/edit?gid=0#gid=0)
 
 
