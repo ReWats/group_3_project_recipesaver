@@ -2,15 +2,6 @@ import requests
 import re
 from bs4 import BeautifulSoup
 
-# useful for referencing during testing
-# urldict = {
-#     "Aldi": "https://www.aldi.co.uk/results?q=",
-#     "Sainsburys": "https://www.sainsburys.co.uk/gol-ui/SearchResults/",
-#     "Tesco": "https://www.tesco.com/groceries/en-GB/search?query=",
-#     "Morrisons": "https://groceries.morrisons.com/search?q=",
-#     "Waitrose": "https://www.waitrose.com/ecom/shop/search?&searchTerm="
-# }
-
 def aldi_api_scrape(ingredient_string):
     # Grabs quantity from string (units / g / ml)
     quantity = int(re.search("[0-9]+", ingredient_string).group(0))
@@ -28,7 +19,8 @@ def aldi_api_scrape(ingredient_string):
     # We use this to work out the price per unit, as we need to know how much each item holds (e.g. 5 pack of oranges)
     aldi_quant = str(soup.find(class_="product-tile__unit-of-measurement"))
     aldi_quant = aldi_quant[93:]
-    aldi_quantity = int(re.search("[0-9]+", aldi_quant).group(0))
+
+    aldi_quantity = int(re.search("[1-9]+", aldi_quant).group(0))
 
     # Extracting the price
     aldi_pr = str(soup.find(class_="base-price__regular"))
@@ -100,114 +92,6 @@ def tesco_api_scrape(ingredient_string):
 
     return ing_dict
 
-def sainsburys_api_scrape(ingredient_string):
-    # Grabs quantity from string (units / g / ml)
-    quantity = int(re.search("[0-9]+", ingredient_string).group(0))
-    # grabs ingredient name. Done using split and join in case of two word names, e.g. "lemon juice"
-    ingredient_temp = ingredient_string.split()[1:]
-    ingredient = " ".join(ingredient_temp)
-
-    print(ingredient)
-    # Builds URL and does API request
-    payload = {'api_key': '68f66e079cf6b42e57365a68fd239b6f',
-               'url': f'https://www.sainsburys.co.uk/gol-ui/SearchResults/{ingredient}'}
-    r = requests.get('https://api.scraperapi.com/', params=payload)
-
-    # Essentially parses the api response into text we can look through!
-    soup = BeautifulSoup(r.text, 'html.parser')
-    print(soup)
-    ########################################################################################################
-    ######################### Needs to be adapted to Sainsbury's website ###################################
-    ########################################################################################################
-
-    # # Need to find the class that holds the quantity for the first item!
-    # quant = str(soup.find(class_="product-tile__unit-of-measurement"))
-    # # Remove all the extra characters around it so we don't have issues with "
-    # quant = quant[93:]
-    # quantity = int(re.search("[0-9]+", quant).group(0))
-    #
-    # # Extracting the price
-    # # Find the class that holds the price
-    # pr = str(soup.find(class_="base-price__regular"))
-    # # Remove all the extra characters around it so we don't have issues with "
-    # pr = pr[40:]
-    # # Note in the below line we divide by quantity so we get unit cost
-    # price = float(re.search("[0-9]+\.[0-9]+", pr).group(0)) / quantity
-
-
-    pr = str(soup.find('span', attrs={'data-testid': 'pt-unit-price'}))
-    print(pr)
-    pr = pr[75:]
-    price = float(re.search("[0-9]+\.[0-9]+", pr).group(0))
-
-    ########################################################################################################
-
-    # Putting all the data we need to calculate costs into a dictionary
-    ing_dict = {
-        "ingredient_name": ingredient,
-        "ingredient_quantity": quantity,
-        "price_per_unit": price
-    }
-
-    return ing_dict
-
-def waitrose_api_scrape(ingredient_string):
-    # Grabs quantity from string (units / g / ml)
-    quantity = int(re.search("[0-9]+", ingredient_string).group(0))
-    # grabs ingredient name. Done using split and join in case of two word names, e.g. "lemon juice"
-    ingredient_temp = ingredient_string.split()[1:]
-    ingredient = " ".join(ingredient_temp)
-
-    # Builds URL and does API request
-    payload = {'api_key': '68f66e079cf6b42e57365a68fd239b6f',
-               'url': f'https://www.waitrose.com/ecom/shop/search?&searchTerm={ingredient}'}
-    r = requests.get('https://api.scraperapi.com/', params=payload)
-
-    # Essentially parses the api response into text we can look through!
-    soup = BeautifulSoup(r.text, 'html.parser')
-
-    ########################################################################################################
-    ######################### Needs to be adapted to Waitrose website ######################################
-    ########################################################################################################
-
-    # Need to find the class that holds the quantity for the first item!
-    quant = str(soup.find(class_="product-tile__unit-of-measurement"))
-    # Remove all the extra characters around it so we don't have issues with "
-    quant = quant[93:]
-    quantity = int(re.search("[0-9]+", quant).group(0))
-
-    # Extracting the price
-    # Find the class that holds the price
-    pr = str(soup.find(class_="base-price__regular"))
-    # Remove all the extra characters around it so we don't have issues with "
-    pr = pr[40:]
-    # Note in the below line we divide by quantity so we get unit cost
-    price = float(re.search("[0-9]+\.[0-9]+", pr).group(0)) / quantity
-
-    quant = str(soup.find(class_="product-pod-price"))
-    # Remove all the extra characters around it so we don't have issues with "
-    quant = quant[93:]
-    quantity = int(re.search("[0-9]+", quant).group(0))
-
-    # Extracting the price
-    # Find the class that holds the price
-    pr = str(soup.find(class_="itemPrice___j1MYI"))
-    # Remove all the extra characters around it so we don't have issues with "
-    pr = pr[40:]
-    # Note in the below line we divide by quantity so we get unit cost
-    price = float(re.search("[0-9]+\.[0-9]+", pr).group(0)) / quantity
-
-    ########################################################################################################
-
-    # Putting all the data we need to calculate costs into a dictionary
-    ing_dict = {
-        "ingredient_name": ingredient,
-        "ingredient_quantity": quantity,
-        "price_per_unit": price
-    }
-
-    return ing_dict
-
 
 def parameter_sorting(ingredients_string):
     # splits ingredients e.g. "1 orange\r\n500g flour\r\n20ml lemon juice" -> ["1 orange", "500g flour", "20ml lemon juice"]
@@ -246,35 +130,11 @@ def parameter_sorting(ingredients_string):
 
     total_tesco_price = float("{:.2f}".format(total_tesco_price))
 
-    # Sainsburys
-    sains_map = map(sainsburys_api_scrape, ingredients_list)
-    sains_ingredients_list = list(sains_map)
-
-    total_sains_price = 0
-    for i in sains_ingredients_list:
-        total_sains_price = total_sains_price + (i["price_per_unit"] * i["ingredient_quantity"])
-
-    total_sains_price = float("{:.2f}".format(total_sains_price))
-
-    # Waitrose
-    # wait_map = map(waitrose_api_scrape, ingredients_list)
-    # wait_ingredients_list = list(wait_map)
-    #
-    # total_wait_price = 0
-    # for i in wait_ingredients_list:
-    #     total_wait_price = total_wait_price + (i["price_per_unit"] * i["ingredient_quantity"])
-    #
-    # total_wait_price = float("{:.2f}".format(total_wait_price))
-
     # Lists the total prices for each supermarket to pass back to the app.py file
     output_dict = {
         "aldi_price": total_aldi_price,
         "morrisons_price": total_morr_price,
-        "sainsburys_price": 0.00,
         "tesco_price": total_tesco_price,
-        "waitrose_price": 0.00
     }
 
     return output_dict
-
-# sainsburys_api_scrape("1 orange")

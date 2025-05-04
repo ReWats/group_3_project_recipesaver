@@ -18,7 +18,7 @@ h1 {
     margin: 20px auto;
     text-align: center;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .section {
@@ -38,10 +38,11 @@ form input {
 
 .supermarket-card {
     background-color: white;
-    width:200px;
+    width: 300px;
     height: 200px;
     border-radius: 10px;
     margin-top: 20px;
+    border: 2px solid #FF6B6B;
 }
 
 .supermarket-card p {
@@ -54,4 +55,8 @@ h3 {
 
 h2 {
     font-size: 40px;
+}
+
+p {
+    font-size: 24px;
 }
