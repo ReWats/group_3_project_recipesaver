@@ -58,7 +58,8 @@ def morrisons_api_scrape(ingredient_string):
     ingredient = " ".join(ingredient_temp)
 
     # Builds URL and does API request
-    payload = {'api_key': '68f66e079cf6b42e57365a68fd239b6f', 'url': f'https://groceries.morrisons.com/search?q={ingredient}'}
+    payload = {'api_key': '68f66e079cf6b42e57365a68fd239b6f',
+               'url': f'https://groceries.morrisons.com/search?q={ingredient}'}
     r = requests.get('https://api.scraperapi.com/', params=payload)
 
     # Essentially parses the api response into text we can look through!
@@ -76,6 +77,7 @@ def morrisons_api_scrape(ingredient_string):
     }
 
     return ing_dict
+
 
 def tesco_api_scrape(ingredient_string):
     # Grabs quantity from string (units / g / ml)
