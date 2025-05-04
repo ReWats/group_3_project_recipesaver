@@ -61,6 +61,8 @@ User input (e.g. ‘Milk, eggs’)  → Backend search URLs → Scraper fetches 
 
 # Instructions For User
 
+-Please be advised the program is slow and will take sometime to run, this is something we would work on in our future improvements.
+
 -In your source code editor; install Python 3
 -Create a virtual environment (venv)
 -Install: requests, beautifulsoup4, flask, mysql-connector-python or run the requirements.txt file (pip install -r requirements.txt)

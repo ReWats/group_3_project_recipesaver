@@ -10,7 +10,7 @@ class TestIngredientInput(unittest.TestCase):
 
     def test_valid_single_ingredient(self):
         # Simulate input of a single ingredient
-        response = self.app.post('/output', data={'textarea': 'milk'})
+        response = self.app.post('/output', data={'textarea': '1L milk'})
 
         # Check if the response status is 200 (successful)
         self.assertEqual(response.status_code, 200)
@@ -20,7 +20,7 @@ class TestIngredientInput(unittest.TestCase):
 
     def test_valid_multiple_ingredients(self):
         # Simulate input of multiple ingredients
-        response = self.app.post('/output', data={'textarea': 'milk, eggs, flour'})
+        response = self.app.post('/output', data={'textarea': '1l milk\r\n2 eggs\r\n2kg flour'})
 
         # Check if the response status is 200 (successful)
         self.assertEqual(response.status_code, 200)
