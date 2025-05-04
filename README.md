@@ -36,14 +36,14 @@ Additional features are:
 
 # Logic and Rules
 
-<u>User Input</u>
+User Input:
 User manually enters items eg:
 User can enter a list of ingredients: "orange, apple" or they can select from a database of popular items, such as a pancake recipe: "milk. eggs, flour"
 
-<u>Price Aggregation</u>
+Price Aggregation:
 ScraperAPI scrapes price data in real time from 3 UK supermarkets: Tesco, Morrisons and Aldi
 
-<u>Calculating cost<u>
+Calculating cost:
 -Single-Store total: Calculates the total cost if all items are bought from one store.
 -Multi-Store optimisation: Recommends splitting the list across stores for maximum savings.
 
@@ -51,12 +51,12 @@ Example:
 -Single-store: Tesco total = £5.00.
 -Multi-store: Buy milk at Aldi (£1.10) + eggs at Tesco (£2.00) = Total £3.10.
 
-<u>Assumptions</u>
+Assumptions:
 -Cost is more important to users than proximity.
 -Websites for supermarkets permit scraping.
 -Items are available in at least one supermarket.
 
-<u>Data Flow Example</u>
+Data Flow Example:
 User input (e.g. ‘Milk, eggs’)  → Backend search URLs → Scraper fetches prices → System calculates total cost → User sees the most affordable shop to find chosen ingredients.
 
 # Instructions For User
@@ -94,12 +94,15 @@ User input (e.g. ‘Milk, eggs’)  → Backend search URLs → Scraper fetches 
 
 # Constraints
 
-<u>Quantities</u>
+Quantities:
 When searching for quantities of the product required, insert in the following format:
     0.5 litre / 0.2 kilogramme 
     rather than: 
     500 grams / 200 millilitres 
 Due to time constraints, we have not yet been able to resolve this however, it is a future fix that we would implement
+
+Error Handling:
+Due to time constraints, we have been unable to complete testing for error handling so user should ensure there are not typos in the ingredients being input to prevent issues with the code running.
 
 # Activity Log
 
