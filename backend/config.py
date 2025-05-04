@@ -1,4 +1,5 @@
 USER = "root"
-PASSWORD = "<your-password-goes-here>"
+PASSWORD = "<password>"
 HOST = "localhost"
 DATABASE = "RecipeSaver"
+APIKEY = "<api-key>"
