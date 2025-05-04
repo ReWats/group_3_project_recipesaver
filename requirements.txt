@@ -1,0 +1,6 @@
+# Install all required dependencise to run the program
+
+Flask==2.3.3
+mysql-connector-python==8.3.0
+requests==2.31.0
+beautifulsoup4=4.12.3
