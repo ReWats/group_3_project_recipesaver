@@ -7,6 +7,7 @@ app = Flask(__name__)
 @app.route("/")
 def index():
     context = get_all_recipes_db()
+    print(context)
     return render_template("index.html", **context)
 
 @app.route("/output", methods=['GET', 'POST'])
