@@ -2,13 +2,6 @@ import requests
 import re
 from bs4 import BeautifulSoup
 
-# useful for referencing during testing
-# urldict = {
-#     "Aldi": "https://www.aldi.co.uk/results?q=",
-#     "Tesco": "https://www.tesco.com/groceries/en-GB/search?query=",
-#     "Morrisons": "https://groceries.morrisons.com/search?q=",
-# }
-
 def aldi_api_scrape(ingredient_string):
     # Grabs quantity from string (units / g / ml)
     quantity = int(re.search("[0-9]+", ingredient_string).group(0))
@@ -26,7 +19,8 @@ def aldi_api_scrape(ingredient_string):
     # We use this to work out the price per unit, as we need to know how much each item holds (e.g. 5 pack of oranges)
     aldi_quant = str(soup.find(class_="product-tile__unit-of-measurement"))
     aldi_quant = aldi_quant[93:]
-    aldi_quantity = int(re.search("[0-9]+", aldi_quant).group(0))
+
+    aldi_quantity = int(re.search("[1-9]+", aldi_quant).group(0))
 
     # Extracting the price
     aldi_pr = str(soup.find(class_="base-price__regular"))
@@ -97,7 +91,6 @@ def tesco_api_scrape(ingredient_string):
     }
 
     return ing_dict
-
 
 
 def parameter_sorting(ingredients_string):
