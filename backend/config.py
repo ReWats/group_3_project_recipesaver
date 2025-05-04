@@ -1,4 +1,4 @@
 USER = "root"
-PASSWORD = "<your-password-goes-here>"
+PASSWORD = "feaTHerst0ne-"
 HOST = "localhost"
 DATABASE = "RecipeSaver"
