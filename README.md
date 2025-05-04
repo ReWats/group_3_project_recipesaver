@@ -32,7 +32,7 @@ The application will have two main functions:
 
 Additional features are:
 
-1) Enter your required ingredients manually or select from a database of commonly used  ingredients (eg: milk, eggs, flour.)
+1) Enter your required ingredients and their quantities manually or select from a database of commonly used  ingredients (eg: 1 litre milk, 6 eggs, 0.5 kilogrammes flour.)
 
 # Logic and Rules
 
@@ -63,6 +63,8 @@ User input (e.g. ‘Milk, eggs’)  → Backend search URLs → Scraper fetches 
 
 -Please be advised the program is slow and will take sometime to run, this is something we would work on in our future improvements.
 
+-You will need to create an account for ScraperAPI to obtain your unique API key which you will enter in the config.py file in order to run the code
+
 -In your source code editor; install Python 3
 -Create a virtual environment (venv)
 -Install: requests, beautifulsoup4, flask, mysql-connector-python or run the requirements.txt file (pip install -r requirements.txt)
@@ -74,9 +76,9 @@ User input (e.g. ‘Milk, eggs’)  → Backend search URLs → Scraper fetches 
 
     sql
 
-    CREATE DATABASE product_pices;
+    CREATE DATABASE RecipeSaver;
     USE product_prices;
-    SOURCE /path/to/tables.sql
+    SOURCE /path/to/Tables.sql
 
 -Update the config.py file with your credentials so that the API can connect to your database, eg:
 
@@ -84,7 +86,6 @@ User input (e.g. ‘Milk, eggs’)  → Backend search URLs → Scraper fetches 
     USER = "enter your user eg: root"
     PASSWORD = "enter your MySQL password"
 
--Run the main.py file in the terminal to get fetch and compare price data from the different supermarkets and insert data
 
 -Run the app.py file which contains the Flask routes and then;
     Go to the Templates folder and output.html to see the returned results of your search
