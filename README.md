@@ -102,6 +102,6 @@ Due to time constraints, we have not yet been able to resolve this however, it i
 
 Please follow the link below to view the Activity Log in Google Sheets for this project:
 
-[text](https://docs.google.com/spreadsheets/d/1k2Zm3fWgJ4qsiLSlswLE0CGPQdNmfZfOuqC7wljym80/edit?gid=0#gid=0)
+[Activity Log](https://docs.google.com/spreadsheets/d/1k2Zm3fWgJ4qsiLSlswLE0CGPQdNmfZfOuqC7wljym80/edit?gid=0#gid=0)
 
 
