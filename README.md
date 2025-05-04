@@ -85,10 +85,10 @@ User input (e.g. ‘Milk, eggs’)  → Backend search URLs → Scraper fetches 
     HOST = "enter your host eg: localhost"
     USER = "enter your user eg: root"
     PASSWORD = "enter your MySQL password"
+    APIKEY = "<api-key>"    
 
 
--Run the app.py file which contains the Flask routes and then;
-    Go to the Templates folder and output.html to see the returned results of your search
+-Run the app.py file which contains the Flask routes and then; in the browser, type the url: http://127.0.0.1:5000 Go to the Templates folder and output.html to see the returned results of your search
 
 -The db_utils.py file does not need to be run, this is a helper file that contains functions which are used by other files such as: main.py and app.py
 
@@ -107,4 +107,9 @@ Please follow the link below to view the Activity Log in Google Sheets for this 
 
 [Activity Log](https://docs.google.com/spreadsheets/d/1k2Zm3fWgJ4qsiLSlswLE0CGPQdNmfZfOuqC7wljym80/edit?gid=0#gid=0)
 
+# Trello Board
+
+Please follow the link below to view the teams Trello board
+
+[Trello Board](https://trello.com/b/9LdDxLCt/group-3-cfg)
 
