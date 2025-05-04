@@ -16,7 +16,7 @@ Rebecca Watson
 -Source code editor such as PyCharm or VS Code
 -Python 3 installed 
 -Virtual Environment (venv) created
--Installed packages: requests, beautifulsoup4, flask, mysql-connector-python, re
+-Installed packages: requests, re, beautifulsoup4, flask, mysql-connector-python, re
 -MySQL workbench
 
 # Introduction
